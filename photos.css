@@ -63,6 +63,11 @@ body {
     margin-bottom: 10px;
 }
 
+/* Make the font for player list smaller */
+#player-checkboxes .player-checkbox label {
+    font-size: 10px; /* Adjust this value as needed */
+}
+
 /* Show player checkboxes when player section is expanded */
 #player-filter.open #player-checkboxes {
     display: block;
