@@ -3,92 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slab Gallery</title>
-    <link rel="stylesheet" href="photos.css"> <!-- Link to your photos.css -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
-        #filters {
-            width: 200px;
-            padding: 20px;
-            background-color: #f4f4f9;
-            border-right: 1px solid #ddd;
-            height: 100vh;
-            overflow-y: auto;
-        }
-        #filters h2 {
-            margin-top: 0;
-        }
-        #filters .tag-checkbox {
-            margin-bottom: 10px;
-        }
-        #photo-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            margin-left: 220px; /* Offset the gallery from the left panel */
-            width: calc(100% - 220px);
-        }
-        .photo-item {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .photo-item img {
-            max-width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-        }
-        .photo-item p {
-            font-size: 14px;
-            color: #666;
-            padding: 10px;
-            margin: 0;
-        }
-        .view-full-photo {
-            font-size: 10px;
-            color: #007bff;
-            text-decoration: none;
-        }
-        .view-full-photo:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
 </head>
 <body>
 
-<!-- Left Filters Panel -->
-<div id="filters">
-    <h2>Filter by Tags</h2>
-    <div id="tag-checkboxes">
-        <!-- Checkboxes will be populated here by JS -->
+    <!-- Left Filter Panel -->
+    <div id="filters">
+        <h2>Filter by Tags</h2>
+        <div id="tag-checkboxes">
+            <!-- Dynamic tag checkboxes will be populated here -->
+        </div>
+        <button id="clear-filters">Clear Filters</button>
     </div>
-    <button id="clear-filters">Clear Filters</button> <!-- Button to clear tag selections -->
-</div>
 
-<!-- Photo Gallery -->
-<div id="photo-gallery">
-    <!-- Photos will be displayed here dynamically -->
-</div>
+    <!-- Photo Gallery -->
+    <div id="photo-gallery">
+        <!-- Dynamic photo items will be populated here -->
+    </div>
 
-<!-- Modal for Enlarged Photo -->
-<div id="photo-modal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="modal-image">
-</div>
+    <!-- Modal for Enlarging Image -->
+    <div id="photo-modal" class="modal">
+        <span class="close">&times;</span>
+        <img id="modal-image" class="modal-content" />
+    </div>
 
-<!-- Back-to-Top Button -->
-<button id="back-to-top" title="Go to top">↑</button>
+    <!-- Back to Top Button -->
+    <button id="back-to-top">↑</button>
 
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script> <!-- PapaParse library for CSV parsing -->
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
+
 </body>
 </html>
