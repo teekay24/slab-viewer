@@ -3,16 +3,17 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    height: 100vh; /* Ensure the page fills the height */
 }
 
 #filters {
-    width: 220px;
+    width: 250px; /* Fixed width for the tag column */
     padding: 20px;
     background-color: #f4f4f9;
     border-right: 1px solid #ddd;
-    height: 100vh;
-    overflow-y: auto;
-    box-sizing: border-box; /* Prevents padding from affecting width */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    height: 100vh; /* Make sure it spans the full height */
+    overflow-y: auto; /* Allow scroll if content overflows */
 }
 
 #filters h2 {
@@ -37,13 +38,14 @@ body {
 }
 
 #photo-gallery {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Grid with flexible columns */
     gap: 20px;
     padding: 20px;
-    width: calc(100% - 220px); /* Takes up the remaining space */
-    box-sizing: border-box; /* Prevents padding from affecting width */
-    height: 100vh; /* Ensure gallery is full height */
+    width: calc(100% - 250px); /* Adjust width to fill remaining space after the filters column */
+    height: 100vh; /* Ensure gallery takes up the remaining height */
+    overflow-y: auto; /* Allow scrolling if the content overflows */
+    box-sizing: border-box;
 }
 
 .photo-item {
@@ -53,8 +55,6 @@ body {
     overflow: hidden;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 30%; /* Adjust the width of each photo item */
-    box-sizing: border-box; /* Ensures padding does not affect the width */
 }
 
 .photo-item img {
