@@ -5,9 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalImage = document.getElementById('modal-image');
     const closeModal = document.querySelector('.close');
     const clearFiltersButton = document.getElementById('clear-filters');
-    const playerCheckboxContainer = document.getElementById('player-checkboxes'); // Container for player checkboxes
+    const playerCheckboxContainer = document.getElementById('player-checkboxes');
+    const togglePlayerFilterButton = document.getElementById('toggle-player-filter');
+    const playerFilterSection = document.getElementById('player-filter-section');
 
     let photosData = []; // Store all photos data to filter
+
+    // Toggle the visibility of the player filter section
+    togglePlayerFilterButton.addEventListener('click', () => {
+        const isVisible = playerFilterSection.style.display === 'block';
+        playerFilterSection.style.display = isVisible ? 'none' : 'block';
+        togglePlayerFilterButton.textContent = isVisible ? 'Show Player Filter' : 'Hide Player Filter';
+    });
 
     function displayPhotos(photos) {
         photoGallery.innerHTML = ''; // Clear the gallery
@@ -143,40 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
         complete: function(results) {
             photosData = results.data;
             populateTags(photosData);
-            populatePlayers(photosData); // Populate the player filter
+            populatePlayers(photosData);
             displayPhotos(photosData); // Display all photos initially
         }
     });
 
     // Attach the clear filters button click event
     clearFiltersButton.addEventListener('click', clearFilters);
-});
-
-// Back to top button functionality
-const backToTopButton = document.getElementById('back-to-top');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) {
-        backToTopButton.style.display = 'flex';
-    } else {
-        backToTopButton.style.display = 'none';
-    }
-});
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// Modal functionality for enlarging photos
-const modal = document.getElementById('photo-modal');
-const modalImage = document.getElementById('modal-image');
-const closeModal = document.querySelector('.close');
-
-// Close modal when clicked outside the image or on the close button
-closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
-
-modal.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
 });
