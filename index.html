@@ -65,25 +65,28 @@
 </head>
 <body>
 
-    <!-- Left Filters Panel -->
-    <div id="filters">
-        <h2>Filter by Tags</h2>
-        <div id="tag-checkboxes">
-            <!-- Checkboxes will be populated here by JS -->
-        </div>
+<!-- Left Filters Panel -->
+<div id="filters">
+    <h2>Filter by Tags</h2>
+    <div id="tag-checkboxes">
+        <!-- Checkboxes will be populated here by JS -->
     </div>
+    <button id="clear-filters">Clear Filters</button> <!-- Button to clear tag selections -->
+</div>
 
-    <!-- Photo Gallery -->
-    <div id="photo-gallery">
-        <!-- Photos will be displayed here dynamically -->
-    </div>
+<!-- Photo Gallery -->
+<div id="photo-gallery">
+    <!-- Photos will be displayed here dynamically -->
+</div>
 
-    <div id="photo-modal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modal-image">
-    </div>
+<!-- Modal for Enlarged Photo -->
+<div id="photo-modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-image">
+</div>
 
-    <button id="back-to-top" title="Go to top">↑</button>
+<!-- Back-to-Top Button -->
+<button id="back-to-top" title="Go to top">↑</button>
 
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.1/papaparse.min.js"></script>
