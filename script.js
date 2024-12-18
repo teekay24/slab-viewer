@@ -5,19 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalImage = document.getElementById('modal-image');
     const closeModal = document.querySelector('.close');
     const clearFiltersButton = document.getElementById('clear-filters');
+    const playerFilter = document.getElementById('player-filter');
     const playerCheckboxContainer = document.getElementById('player-checkboxes');
-    const togglePlayerFilterButton = document.getElementById('toggle-player-filter');
-    const playerFilterSection = document.getElementById('player-filter-section');
 
     let photosData = []; // Store all photos data to filter
 
-    // Toggle the visibility of the player filter section
-    togglePlayerFilterButton.addEventListener('click', () => {
-        const isVisible = playerFilterSection.style.display === 'block';
-        playerFilterSection.style.display = isVisible ? 'none' : 'block';
-        togglePlayerFilterButton.textContent = isVisible ? 'Show Player Filter' : 'Hide Player Filter';
-    });
-
+    // Display photos in the gallery
     function displayPhotos(photos) {
         photoGallery.innerHTML = ''; // Clear the gallery
 
@@ -49,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Populate the tag filters
     function populateTags(photos) {
         const tagsSet = new Set();
         const excludedTags = new Set(['BRAVES', '', 'All Tags', 'EXPOS', 'PADRES', 'MARINERS', 'INDIANS', 'RANGERS', 'USA', 'TWINS']);
@@ -77,14 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add event listeners for tag filters
         document.querySelectorAll('.tag-filter').forEach(checkbox => {
-            checkbox.addEventListener('change', filterPhotos);
+            checkbox.addEventListener('change', filterPhotosByTags);
         });
     }
 
-    function populatePlayers(photos) {
+    // Populate the player filter
+    function populatePlayerFilter(photos) {
         const playersSet = new Set();
 
-        // Collect unique players, accounting for multiple players in one entry
+        // Collect unique players, handling multiple player names
         photos.forEach(photo => {
             const players = (photo.Player || '').split('/');
             players.forEach(player => {
@@ -92,57 +87,66 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Create radio buttons for each player (only one can be selected)
+        // Create checkboxes for each player
         Array.from(playersSet).sort().forEach(player => {
-            const radioDiv = document.createElement('div');
-            radioDiv.className = 'player-radio';
-            radioDiv.innerHTML = `
-                <input type="radio" name="player-filter" id="player-${player}" class="player-filter" value="${player}">
+            const checkboxDiv = document.createElement('div');
+            checkboxDiv.className = 'player-checkbox';
+            checkboxDiv.innerHTML = `
+                <input type="radio" id="player-${player}" class="player-filter" name="player" value="${player}">
                 <label for="player-${player}">${player}</label>
             `;
-            playerCheckboxContainer.appendChild(radioDiv);
+            playerCheckboxContainer.appendChild(checkboxDiv);
         });
 
-        // Add event listeners for player filters
-        document.querySelectorAll('.player-filter').forEach(radio => {
-            radio.addEventListener('change', filterPhotos);
+        // Add event listeners for player filter
+        document.querySelectorAll('.player-filter').forEach(checkbox => {
+            checkbox.addEventListener('change', filterPhotosByPlayer);
         });
     }
 
-    function filterPhotos() {
-        // Get selected tags
+    // Filter photos by selected tags
+    function filterPhotosByTags() {
+        // Get all selected tags
         const selectedTags = Array.from(document.querySelectorAll('.tag-filter:checked'))
             .map(checkbox => checkbox.value);
 
-        // Get selected player
-        const selectedPlayer = document.querySelector('.player-filter:checked')?.value;
+        // Filter photos by selected tags
+        const filteredPhotos = selectedTags.length > 0
+            ? photosData.filter(photo => {
+                  const photoTags = (photo.Tags || '').replace(/[()]/g, '').split('/');
+                  const photoTagList = photoTags.map(tag => tag.trim());
+                  return selectedTags.every(tag => photoTagList.includes(tag)); // Match all selected tags
+              })
+            : photosData; // No tags selected, show all photos
 
-        // Filter photos based on selected tags and player
-        const filteredPhotos = photosData.filter(photo => {
-            const photoTags = (photo.Tags || '').replace(/[()]/g, '').split('/');
-            const photoTagList = photoTags.map(tag => tag.trim());
-            const photoPlayers = (photo.Player || '').split('/').map(player => player.trim());
-
-            const tagsMatch = selectedTags.length === 0 || selectedTags.every(tag => photoTagList.includes(tag));
-            const playerMatch = !selectedPlayer || photoPlayers.includes(selectedPlayer);
-
-            return tagsMatch && playerMatch;
-        });
-
-        // Display filtered photos
         displayPhotos(filteredPhotos);
     }
 
-    // Clear all selections
+    // Filter photos by selected player
+    function filterPhotosByPlayer() {
+        // Get the selected player
+        const selectedPlayer = document.querySelector('.player-filter:checked')?.value;
+
+        // Filter photos by selected player
+        const filteredPhotos = selectedPlayer
+            ? photosData.filter(photo => {
+                  const players = (photo.Player || '').split('/');
+                  return players.some(player => player.trim() === selectedPlayer);
+              })
+            : photosData; // No player selected, show all photos
+
+        displayPhotos(filteredPhotos);
+    }
+
+    // Clear all tag and player selections
     function clearFilters() {
-        // Uncheck all tag checkboxes and player radio buttons
         document.querySelectorAll('.tag-filter').forEach(checkbox => {
-            checkbox.checked = false;
+            checkbox.checked = false; // Uncheck all tag checkboxes
         });
-        document.querySelectorAll('.player-filter').forEach(radio => {
-            radio.checked = false;
+        document.querySelectorAll('.player-filter').forEach(checkbox => {
+            checkbox.checked = false; // Uncheck all player radio buttons
         });
-        displayPhotos(photosData); // Show all photos
+        displayPhotos(photosData); // Reset gallery display
     }
 
     // Load CSV file
@@ -152,11 +156,40 @@ document.addEventListener('DOMContentLoaded', () => {
         complete: function(results) {
             photosData = results.data;
             populateTags(photosData);
-            populatePlayers(photosData);
+            populatePlayerFilter(photosData);
             displayPhotos(photosData); // Display all photos initially
         }
     });
 
     // Attach the clear filters button click event
     clearFiltersButton.addEventListener('click', clearFilters);
+});
+
+// Back to top button functionality
+const backToTopButton = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+        backToTopButton.style.display = 'flex';
+    } else {
+        backToTopButton.style.display = 'none';
+    }
+});
+backToTopButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Modal functionality for enlarging photos
+const modal = document.getElementById('photo-modal');
+const modalImage = document.getElementById('modal-image');
+const closeModal = document.querySelector('.close');
+
+// Close modal when clicked outside the image or on the close button
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
 });
