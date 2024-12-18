@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
     margin: 0;
     padding: 0;
+    display: flex;
 }
 
 #filters {
@@ -12,6 +12,7 @@ body {
     border-right: 1px solid #ddd;
     height: 100vh;
     overflow-y: auto;
+    box-sizing: border-box; /* Prevents padding from affecting width */
 }
 
 #filters h2 {
@@ -40,7 +41,9 @@ body {
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
-    width: calc(100% - 220px); /* Ensure the gallery fills the remaining space */
+    width: calc(100% - 220px); /* Takes up the remaining space */
+    box-sizing: border-box; /* Prevents padding from affecting width */
+    height: 100vh; /* Ensure gallery is full height */
 }
 
 .photo-item {
@@ -50,6 +53,8 @@ body {
     overflow: hidden;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%; /* Adjust the width of each photo item */
+    box-sizing: border-box; /* Ensures padding does not affect the width */
 }
 
 .photo-item img {
