@@ -3,6 +3,7 @@ body {
     display: flex;
     margin: 0;
     padding: 0;
+    height: 100vh;
 }
 
 #filters {
@@ -10,12 +11,12 @@ body {
     padding: 20px;
     background-color: #f4f4f9;
     border-right: 1px solid #ddd;
-    height: 100vh; /* Ensures the filter panel takes up the full height */
-    position: fixed; /* Fixes the position of the filter panel on the left */
-    top: 0; /* Ensures it stays at the top */
-    left: 0; /* Aligns it to the left side */
-    overflow-y: auto; /* Allows scrolling inside the filter panel if necessary */
-    z-index: 10; /* Ensures it stays above other content */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    z-index: 10; /* Keeps filters panel on top */
 }
 
 #filters h2 {
@@ -40,14 +41,15 @@ body {
 }
 
 #photo-gallery {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
-    margin-left: 240px; /* Creates space on the left side for the filter panel */
-    width: calc(100% - 220px); /* Ensures the gallery fills the remaining space */
-    height: 100vh; /* Ensure it takes the full height of the screen */
-    overflow-y: auto; /* Allows scrolling within the gallery */
+    margin-left: 240px; /* Creates space for the filters panel */
+    width: calc(100% - 240px); /* Adjusts the width based on the filter panel */
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .photo-item {
