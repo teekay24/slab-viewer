@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const checkboxDiv = document.createElement('div');
             checkboxDiv.className = 'player-checkbox';
             checkboxDiv.innerHTML = `
-                <input type="radio" id="player-${player}" class="player-filter" name="player" value="${player}">
+                <input type="checkbox" id="player-${player}" class="player-filter" value="${player}">
                 <label for="player-${player}">${player}</label>
             `;
             playerCheckboxContainer.appendChild(checkboxDiv);
@@ -124,14 +124,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Filter photos by selected player
     function filterPhotosByPlayer() {
-        // Get the selected player
-        const selectedPlayer = document.querySelector('.player-filter:checked')?.value;
+        // Get all selected players
+        const selectedPlayers = Array.from(document.querySelectorAll('.player-filter:checked'))
+            .map(checkbox => checkbox.value);
 
-        // Filter photos by selected player
-        const filteredPhotos = selectedPlayer
+        // Filter photos by selected players
+        const filteredPhotos = selectedPlayers.length > 0
             ? photosData.filter(photo => {
                   const players = (photo.Player || '').split('/');
-                  return players.some(player => player.trim() === selectedPlayer);
+                  return selectedPlayers.some(player => players.includes(player.trim()));
               })
             : photosData; // No player selected, show all photos
 
@@ -144,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkbox.checked = false; // Uncheck all tag checkboxes
         });
         document.querySelectorAll('.player-filter').forEach(checkbox => {
-            checkbox.checked = false; // Uncheck all player radio buttons
+            checkbox.checked = false; // Uncheck all player checkboxes
         });
         displayPhotos(photosData); // Reset gallery display
     }
