@@ -58,7 +58,7 @@ function populateTags(photos) {
     const tagsSet = new Set();
 
     // Define the tags to exclude
-    const excludedTags = new Set(['BRAVES', '', 'All Tags', 'EXPOS', 'MARINERS', 'INDIANS', 'RANGERS', 'TWINS']);
+    const excludedTags = new Set(['BRAVES', '', 'All Tags', 'EXPOS', 'MARINERS', 'INDIANS', 'RANGERS', 'USA', 'TWINS']);
 
     // Collect all unique tags from the photos
     photos.forEach(photo => {
