@@ -1,132 +1,129 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const tagSelect = document.getElementById('tag-select');
-    const photoGallery = document.getElementById('photo-gallery');
-
-function displayPhotos(photos) {
+    const tagCheckboxContainer = document.getElementById('tag-checkboxes');
     const photoGallery = document.getElementById('photo-gallery');
     const modal = document.getElementById('photo-modal');
     const modalImage = document.getElementById('modal-image');
     const closeModal = document.querySelector('.close');
 
-    photoGallery.innerHTML = ''; // Clear the gallery
+    let photosData = []; // Store all photos data to filter
 
-    // Display each photo
-    photos.forEach(photo => {
-        const photoItem = document.createElement('div');
-        photoItem.className = 'photo-item';
+    function displayPhotos(photos) {
+        photoGallery.innerHTML = ''; // Clear the gallery
 
-        // Construct the local file path using the "Photo ID" field
-        const photoPath = `./photos/${photo["Photo ID"]}.jpg`;
+        // Display each photo
+        photos.forEach(photo => {
+            const photoItem = document.createElement('div');
+            photoItem.className = 'photo-item';
 
-        // Retrieve Player and Set values, defaulting to an empty string if undefined
-        const player = photo.Player || '';
-        const set = photo.Set || '';
+            const photoPath = `./photos/${photo["Photo ID"]}.jpg`;
+            const player = photo.Player || '';
+            const set = photo.Set || '';
 
-        photoItem.innerHTML = `
-            <img src="${photoPath}" alt="${photo.Title}" loading="lazy">
-            <p>${player} ${set}</p>
-            <a href="#" class="view-full-photo">Enlarge Photo</a>
-        `;
+            photoItem.innerHTML = `
+                <img src="${photoPath}" alt="${photo.Title}" loading="lazy">
+                <p>${player} ${set}</p>
+                <a href="#" class="view-full-photo">Enlarge Photo</a>
+            `;
 
-        // Append the photo item to the gallery
-        photoGallery.appendChild(photoItem);
+            // Append the photo item to the gallery
+            photoGallery.appendChild(photoItem);
 
-        // Add event listener for the modal
-        const viewLink = photoItem.querySelector('.view-full-photo');
-        viewLink.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent navigation
-            modal.style.display = 'block';
-            modalImage.src = photoPath; // Set the image in the modal
+            // Enlarge photo functionality
+            const viewLink = photoItem.querySelector('.view-full-photo');
+            viewLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                modal.style.display = 'block';
+                modalImage.src = photoPath;
+            });
         });
-    });
+    }
 
-    // Close the modal when the close button is clicked
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+    function populateTags(photos) {
+        const tagsSet = new Set();
+        const excludedTags = new Set(['BRAVES', '', 'All Tags', 'EXPOS', 'PADRES', 'MARINERS', 'INDIANS', 'RANGERS', 'USA', 'TWINS']);
 
-    // Close the modal when clicking outside the image
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-}
-
-function populateTags(photos) {
-    const tagSelect = document.getElementById('tag-select');
-    const tagsSet = new Set();
-
-    // Define the tags to exclude
-    const excludedTags = new Set(['BRAVES', '', 'All Tags', 'EXPOS', 'PADRES', 'MARINERS', 'INDIANS', 'RANGERS', 'USA', 'TWINS']);
-
-    // Collect all unique tags from the photos
-    photos.forEach(photo => {
-        const tags = (photo.Tags || '').replace(/[()]/g, '').split('/');
-        tags.forEach(tag => {
-            const trimmedTag = tag.trim();
-            // Add the tag only if it's not in the excluded list
-            if (!excludedTags.has(trimmedTag.toUpperCase())) {
-                tagsSet.add(trimmedTag);
-            }
+        // Collect unique tags
+        photos.forEach(photo => {
+            const tags = (photo.Tags || '').replace(/[()]/g, '').split('/');
+            tags.forEach(tag => {
+                const trimmedTag = tag.trim();
+                if (!excludedTags.has(trimmedTag.toUpperCase())) {
+                    tagsSet.add(trimmedTag);
+                }
+            });
         });
-    });
 
+        // Create checkboxes for each tag
+        Array.from(tagsSet).sort().forEach(tag => {
+            const checkboxDiv = document.createElement('div');
+            checkboxDiv.className = 'tag-checkbox';
+            checkboxDiv.innerHTML = `
+                <input type="checkbox" id="tag-${tag}" class="tag-filter" value="${tag}">
+                <label for="tag-${tag}">${tag}</label>
+            `;
+            tagCheckboxContainer.appendChild(checkboxDiv);
+        });
 
+        // Add event listeners for tag filters
+        document.querySelectorAll('.tag-filter').forEach(checkbox => {
+            checkbox.addEventListener('change', filterPhotosByTags);
+        });
+    }
 
-    // Add each tag to the dropdown, sorted alphabetically
-    Array.from(tagsSet).sort().forEach(tag => {
-        const option = document.createElement('option');
-        option.value = tag;
-        option.textContent = tag;
-        tagSelect.appendChild(option);
-    });
-}
+    function filterPhotosByTags() {
+        // Get all selected tags
+        const selectedTags = Array.from(document.querySelectorAll('.tag-filter:checked'))
+            .map(checkbox => checkbox.value);
+
+        // Filter photos by selected tags
+        const filteredPhotos = selectedTags.length > 0
+            ? photosData.filter(photo => {
+                  const photoTags = (photo.Tags || '').replace(/[()]/g, '').split('/');
+                  const photoTagList = photoTags.map(tag => tag.trim());
+                  return selectedTags.every(tag => photoTagList.includes(tag)); // Match all selected tags
+              })
+            : photosData; // No tags selected, show all photos
+
+        displayPhotos(filteredPhotos);
+    }
 
     // Load CSV file
     Papa.parse('./photos.csv', {
         download: true,
         header: true,
         complete: function(results) {
-            const photos = results.data;
-            populateTags(photos);
-            displayPhotos(photos);
-
-            // Dropdown change event
-            tagSelect.addEventListener('change', () => {
-                const selectedTag = tagSelect.value;
-
-                // Filter photos based on whether the selected tag is included
-                const filteredPhotos = selectedTag
-                    ? photos.filter(photo => {
-                          // Remove parentheses and check if the tag exists
-                          const tags = (photo.Tags || '').replace(/[()]/g, '').split('/');
-                          return tags.map(tag => tag.trim()).includes(selectedTag);
-                      })
-                    : photos; // If no tag selected, show all photos
-
-                displayPhotos(filteredPhotos);
-            });
+            photosData = results.data;
+            populateTags(photosData);
+            displayPhotos(photosData); // Display all photos initially
         }
     });
 });
 
-// Select the button
+// Back to top button functionality
 const backToTopButton = document.getElementById('back-to-top');
-
-// Show/hide the button based on scroll position
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) { // Show after scrolling down 200px
-        backToTopButton.style.display = 'flex'; // Use 'flex' to center content
+    if (window.scrollY > 200) {
+        backToTopButton.style.display = 'flex';
     } else {
         backToTopButton.style.display = 'none';
     }
 });
-
-// Scroll to top when button is clicked
 backToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Smooth scrolling
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Modal functionality for enlarging photos
+const modal = document.getElementById('photo-modal');
+const modalImage = document.getElementById('modal-image');
+const closeModal = document.querySelector('.close');
+
+// Close modal when clicked outside the image or on the close button
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
 });
