@@ -3,20 +3,18 @@ body {
     display: flex;
     margin: 0;
     padding: 0;
-    height: 100vh;
 }
 
 #filters {
-    width: 220px;
+    width: 220px; /* Width of the left panel */
     padding: 20px;
     background-color: #f4f4f9;
     border-right: 1px solid #ddd;
     height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
     overflow-y: auto;
-    z-index: 10; /* Keep filters on top */
+    position: fixed; /* Fix the filter panel to the left side */
+    top: 0; /* Keep it at the top */
+    left: 0; /* Align it to the left */
 }
 
 #filters h2 {
@@ -42,14 +40,11 @@ body {
 
 #photo-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Automatically fill columns */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
-    margin-left: 240px; /* Add space for the left panel */
-    width: calc(100% - 240px); /* Adjust the gallery width */
-    height: 100vh;
-    overflow-y: auto;
-    box-sizing: border-box;
+    margin-left: 240px; /* Ensure it doesn't overlap with the left panel */
+    width: calc(100% - 240px); /* Adjust width */
 }
 
 .photo-item {
@@ -84,6 +79,7 @@ body {
     text-decoration: underline;
 }
 
+/* Modal styles for enlarged photo */
 .modal {
     display: none;
     position: fixed;
