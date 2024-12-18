@@ -16,7 +16,7 @@ body {
     top: 0;
     left: 0;
     overflow-y: auto;
-    z-index: 10; /* Keeps filters panel on top */
+    z-index: 10; /* Keep filters on top */
 }
 
 #filters h2 {
@@ -42,11 +42,11 @@ body {
 
 #photo-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Automatically fill columns */
     gap: 20px;
     padding: 20px;
-    margin-left: 240px; /* Creates space for the filters panel */
-    width: calc(100% - 240px); /* Adjusts the width based on the filter panel */
+    margin-left: 240px; /* Add space for the left panel */
+    width: calc(100% - 240px); /* Adjust the gallery width */
     height: 100vh;
     overflow-y: auto;
     box-sizing: border-box;
