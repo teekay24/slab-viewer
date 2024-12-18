@@ -72,11 +72,7 @@ function populateTags(photos) {
         });
     });
 
-    // Add default "All Tags" option
-    const allOption = document.createElement('option');
-    allOption.value = '';
-    allOption.textContent = 'All Tags';
-    tagSelect.appendChild(allOption);
+
 
     // Add each tag to the dropdown, sorted alphabetically
     Array.from(tagsSet).sort().forEach(tag => {
