@@ -38,6 +38,36 @@ body {
     background-color: #0056b3;
 }
 
+/* Player Filter Section */
+#player-filter {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+#player-filter h3 {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+    background-color: #f4f4f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#player-checkboxes {
+    display: none;
+    margin-top: 10px;
+}
+
+#player-checkboxes .player-checkbox {
+    margin-bottom: 10px;
+}
+
+/* Show player checkboxes when player section is expanded */
+#player-filter.open #player-checkboxes {
+    display: block;
+}
+
 #photo-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
