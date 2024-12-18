@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add event listeners for tag filters
         document.querySelectorAll('.tag-filter').forEach(checkbox => {
-            checkbox.addEventListener('change', filterPhotosByTags);
+            checkbox.addEventListener('change', filterPhotos);
         });
     }
 
@@ -96,16 +96,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add event listeners for player filters
         document.querySelectorAll('.player-filter').forEach(radio => {
-            radio.addEventListener('change', filterPhotosByPlayer);
+            radio.addEventListener('change', filterPhotos);
         });
     }
 
-    function filterPhotosByTags() {
+    function filterPhotos() {
+        // Get selected tags
         const selectedTags = Array.from(document.querySelectorAll('.tag-filter:checked'))
             .map(checkbox => checkbox.value);
 
+        // Get selected player
         const selectedPlayer = document.querySelector('.player-filter:checked')?.value;
 
+        // Filter photos based on selected tags and player
         const filteredPhotos = photosData.filter(photo => {
             const photoTags = (photo.Tags || '').replace(/[()]/g, '').split('/');
             const photoTagList = photoTags.map(tag => tag.trim());
@@ -117,18 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return tagsMatch && playerMatch;
         });
 
+        // Display filtered photos
         displayPhotos(filteredPhotos);
     }
 
-    // Clear all tag selections
-    function clearTagSelections() {
+    // Clear all selections
+    function clearFilters() {
+        // Uncheck all tag checkboxes and player radio buttons
         document.querySelectorAll('.tag-filter').forEach(checkbox => {
-            checkbox.checked = false; // Uncheck all checkboxes
+            checkbox.checked = false;
         });
         document.querySelectorAll('.player-filter').forEach(radio => {
-            radio.checked = false; // Uncheck all player radio buttons
+            radio.checked = false;
         });
-        filterPhotosByTags(); // Reset gallery display
+        displayPhotos(photosData); // Show all photos
     }
 
     // Load CSV file
@@ -144,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Attach the clear filters button click event
-    clearFiltersButton.addEventListener('click', clearTagSelections);
+    clearFiltersButton.addEventListener('click', clearFilters);
 });
 
 // Back to top button functionality
