@@ -1,19 +1,17 @@
 body {
     font-family: Arial, sans-serif;
+    display: flex;
     margin: 0;
     padding: 0;
-    display: flex;
-    height: 100vh; /* Ensure the page fills the height */
 }
 
 #filters {
-    width: 250px; /* Fixed width for the tag column */
+    width: 220px;
     padding: 20px;
     background-color: #f4f4f9;
     border-right: 1px solid #ddd;
-    box-sizing: border-box; /* Include padding in the width calculation */
-    height: 100vh; /* Make sure it spans the full height */
-    overflow-y: auto; /* Allow scroll if content overflows */
+    height: 100vh;
+    overflow-y: auto;
 }
 
 #filters h2 {
@@ -38,14 +36,11 @@ body {
 }
 
 #photo-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Grid with flexible columns */
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
-    width: calc(100% - 250px); /* Adjust width to fill remaining space after the filters column */
-    height: 100vh; /* Ensure gallery takes up the remaining height */
-    overflow-y: auto; /* Allow scrolling if the content overflows */
-    box-sizing: border-box;
+    width: calc(100% - 220px); /* Ensure the gallery fills the remaining space */
 }
 
 .photo-item {
