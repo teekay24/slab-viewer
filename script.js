@@ -1,13 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tagSelect = document.getElementById('tag-select');
     const photoGallery = document.getElementById('photo-gallery');
+    const modal = document.getElementById('photo-modal');
+    const modalImage = document.getElementById('modal-image');
+    const closeModal = document.querySelector('.close');
 
     function displayPhotos(photos) {
-        const photoGallery = document.getElementById('photo-gallery');
-        const modal = document.getElementById('photo-modal');
-        const modalImage = document.getElementById('modal-image');
-        const closeModal = document.querySelector('.close');
-
         photoGallery.innerHTML = ''; // Clear the gallery
 
         // Display each photo
@@ -38,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Append the photo item to the gallery
             photoGallery.appendChild(photoItem);
 
-            // Add event listener for the modal
+            // Add event listener for the modal to enlarge photo
             const viewLink = photoItem.querySelector('.view-full-photo');
             viewLink.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent navigation
-                modal.style.display = 'block';
+                event.preventDefault(); // Prevent default link action
+                modal.style.display = 'block'; // Show the modal
                 modalImage.src = photoPath; // Set the image in the modal
             });
 
@@ -69,13 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Close the modal when the close button is clicked
         closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
+            modal.style.display = 'none'; // Hide the modal
         });
 
         // Close the modal when clicking outside the image
         modal.addEventListener('click', (event) => {
             if (event.target === modal) {
-                modal.style.display = 'none';
+                modal.style.display = 'none'; // Hide the modal when clicked outside
             }
         });
     }
