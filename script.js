@@ -53,30 +53,39 @@ function displayPhotos(photos) {
     });
 }
 
-    function populateTags(photos) {
-        const tagSelect = document.getElementById('tag-select');
-        const tagsSet = new Set();
+function populateTags(photos) {
+    const tagSelect = document.getElementById('tag-select');
+    const tagsSet = new Set();
 
-        // Collect all unique tags from the photos
-        photos.forEach(photo => {
-            const tags = (photo.Tags || '').replace(/[()]/g, '').split('/');
-            tags.forEach(tag => tagsSet.add(tag.trim()));
+    // Define the tags to exclude
+    const excludedTags = new Set(['BRAVES', 'EXPOS', 'MARINERS', 'INDIANS', 'RANGERS', 'TWINS']);
+
+    // Collect all unique tags from the photos
+    photos.forEach(photo => {
+        const tags = (photo.Tags || '').replace(/[()]/g, '').split('/');
+        tags.forEach(tag => {
+            const trimmedTag = tag.trim();
+            // Add the tag only if it's not in the excluded list
+            if (!excludedTags.has(trimmedTag.toUpperCase())) {
+                tagsSet.add(trimmedTag);
+            }
         });
+    });
 
-        // Add default "All Tags" option
-        const allOption = document.createElement('option');
-        allOption.value = '';
-        allOption.textContent = 'All Tags';
-        tagSelect.appendChild(allOption);
+    // Add default "All Tags" option
+    const allOption = document.createElement('option');
+    allOption.value = '';
+    allOption.textContent = 'All Tags';
+    tagSelect.appendChild(allOption);
 
-        // Add each tag to the dropdown
-        Array.from(tagsSet).sort().forEach(tag => {
-            const option = document.createElement('option');
-            option.value = tag;
-            option.textContent = tag;
-            tagSelect.appendChild(option);
-        });
-    }
+    // Add each tag to the dropdown, sorted alphabetically
+    Array.from(tagsSet).sort().forEach(tag => {
+        const option = document.createElement('option');
+        option.value = tag;
+        option.textContent = tag;
+        tagSelect.appendChild(option);
+    });
+}
 
     // Load CSV file
     Papa.parse('./photos.csv', {
