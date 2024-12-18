@@ -6,7 +6,7 @@ body {
 }
 
 #filters {
-    width: 220px; /* Width of the left panel */
+    width: 150px; /* Width of the left panel */
     padding: 20px;
     background-color: #f4f4f9;
     border-right: 1px solid #ddd;
@@ -76,7 +76,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
-    margin-left: 240px; /* Ensure it doesn't overlap with the left panel */
+    margin-left: 170px; /* Ensure it doesn't overlap with the left panel */
     width: calc(100% - 240px); /* Adjust width */
 }
 
