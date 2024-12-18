@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('photo-modal');
     const modalImage = document.getElementById('modal-image');
     const closeModal = document.querySelector('.close');
+    const clearFiltersButton = document.getElementById('clear-filters'); // Reference to clear filters button
 
     let photosData = []; // Store all photos data to filter
 
@@ -87,6 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
         displayPhotos(filteredPhotos);
     }
 
+    // Clear all tag selections
+    function clearTagSelections() {
+        document.querySelectorAll('.tag-filter').forEach(checkbox => {
+            checkbox.checked = false; // Uncheck all checkboxes
+        });
+        filterPhotosByTags(); // Reset gallery display
+    }
+
     // Load CSV file
     Papa.parse('./photos.csv', {
         download: true,
@@ -97,6 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
             displayPhotos(photosData); // Display all photos initially
         }
     });
+
+    // Attach the clear filters button click event
+    clearFiltersButton.addEventListener('click', clearTagSelections);
 });
 
 // Back to top button functionality
