@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   const photoPlayerList = photoPlayers.map(player => player.trim());
 
                   const matchTags = selectedTags.every(tag => photoTagList.includes(tag)); // Match all selected tags
-                  const matchPlayers = selectedPlayers.every(player => photoPlayerList.includes(player)); // Match all selected players
+                  const matchPlayers = selectedPlayers.some(player => photoPlayerList.includes(player)); // Match any selected players
 
                   return matchTags && matchPlayers;
               })
