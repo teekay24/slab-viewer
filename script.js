@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populatePlayers(photos) {
         const playersSet = new Set();
+        const excludedPlayers = new Set(['Barry Zito']);
 
         // Collect unique player names
         photos.forEach(photo => {
