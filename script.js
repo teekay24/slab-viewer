@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let photosData = []; // Store all photos data to filter
     let allPlayers = []; // Store unique player names
 
+    // Make the player filter open by default
+    const playerFilterSection = document.getElementById('player-filter');
+    playerFilterSection.classList.add('open'); // Add the "open" class by default
+
     function displayPhotos(photos) {
         photoGallery.innerHTML = ''; // Clear the gallery
 
