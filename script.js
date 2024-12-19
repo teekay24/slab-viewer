@@ -10,10 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let photosData = []; // Store all photos data to filter
     let allPlayers = []; // Store unique player names
 
-    // Make the player filter open by default
-    const playerFilterSection = document.getElementById('player-filter');
-    playerFilterSection.classList.add('open'); // Add the "open" class by default
-
     function displayPhotos(photos) {
         photoGallery.innerHTML = ''; // Clear the gallery
 
@@ -79,15 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populatePlayers(photos) {
         const playersSet = new Set();
-        const excludedPlayers = new Set(['Barry Zito']); // Exclude Barry Zito
 
         // Collect unique player names
         photos.forEach(photo => {
             const players = (photo.Player || '').split('/');
             players.forEach(player => {
                 const trimmedPlayer = player.trim();
-                if (trimmedPlayer && !excludedPlayers.has(trimmedPlayer)) {
-                    playersSet.add(trimmedPlayer); // Exclude 'Barry Zito'
+                if (trimmedPlayer) {
+                    playersSet.add(trimmedPlayer);
                 }
             });
         });
@@ -130,10 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   const photoPlayers = (photo.Player || '').split('/');
                   const photoPlayerList = photoPlayers.map(player => player.trim());
 
-                  // Match all selected tags
-                  const matchTags = selectedTags.every(tag => photoTagList.includes(tag));
-                  // Match any selected players (OR logic)
-                  const matchPlayers = selectedPlayers.some(player => photoPlayerList.includes(player));
+                  const matchTags = selectedTags.every(tag => photoTagList.includes(tag)); // Match all selected tags
+                  const matchPlayers = selectedPlayers.some(player => photoPlayerList.includes(player)); // Match any selected players
 
                   return matchTags && matchPlayers;
               })
