@@ -164,10 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
     clearFiltersButton.addEventListener('click', clearTagAndPlayerSelections);
 
     // Handle player filter section toggle
-    const playerFilterHeader = document.querySelector('#player-filter h3');
-    const playerFilterSection = document.getElementById('player-filter');
-    playerFilterHeader.addEventListener('click', () => {
-        playerFilterSection.classList.toggle('open');
+    const togglePlayerFilterButton = document.getElementById('toggle-player-filter');
+    const playerFilterSection = document.getElementById('player-filter-section');
+    
+    togglePlayerFilterButton.addEventListener('click', () => {
+        playerFilterSection.style.display = (playerFilterSection.style.display === 'none') ? 'block' : 'none';
     });
 });
 
