@@ -45,34 +45,6 @@ body {
     padding-top: 10px;
 }
 
-/* Player filter button style */
-#toggle-player-filter {
-    cursor: pointer;
-    margin: 0;
-    padding: 10px;
-    background-color: #007bff; /* Blue background for visibility */
-    color: white; /* Text color */
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    width: 100%; /* Makes the button fill its container */
-    text-align: center;
-    font-size: 14px;
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
-}
-
-/* Hover effect for the Player filter button */
-#toggle-player-filter:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    border-color: #0056b3; /* Same dark border color on hover */
-}
-
-/* Focus effect to make it look more interactive */
-#toggle-player-filter:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Blue glow effect */
-}
-
-/* Player Filter section styles */
 #player-filter h3 {
     cursor: pointer;
     margin: 0;
@@ -100,6 +72,9 @@ body {
 #player-filter.open #player-checkboxes {
     display: block;
 }
+
+
+
 
 #photo-gallery {
     display: grid;
