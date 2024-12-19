@@ -73,22 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-function populatePlayers(photos) {
-    const playersSet = new Set();
-    const excludedPlayers = new Set(['Barry Zito']); // List of players to exclude
+    function populatePlayers(photos) {
+        const playersSet = new Set();
 
-    // Collect unique player names
-    photos.forEach(photo => {
-        const players = (photo.Player || '').split('/'); // Split the player names by "/"
-        players.forEach(player => {
-            const trimmedPlayer = player.trim(); // Trim any whitespace
-
-            // Only add player if they are not in the excluded list
-            if (trimmedPlayer && !excludedPlayers.has(trimmedPlayer)) {
-                playersSet.add(trimmedPlayer); // Add player to the set if not excluded
-            }
+        // Collect unique player names
+        photos.forEach(photo => {
+            const players = (photo.Player || '').split('/');
+            players.forEach(player => {
+                const trimmedPlayer = player.trim();
+                if (trimmedPlayer) {
+                    playersSet.add(trimmedPlayer);
+                }
+            });
         });
-    });
 
         allPlayers = Array.from(playersSet).sort();
 
