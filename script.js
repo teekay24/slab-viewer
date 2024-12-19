@@ -115,24 +115,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedPlayers = Array.from(document.querySelectorAll('.player-filter:checked'))
             .map(checkbox => checkbox.value);
 
-        // Filter photos by selected tags and players
-        const filteredPhotos = selectedTags.length > 0 || selectedPlayers.length > 0
-            ? photosData.filter(photo => {
-                  const photoTags = (photo.Tags || '').replace(/[()]/g, '').split('/');
-                  const photoTagList = photoTags.map(tag => tag.trim());
+        // Filter photos by selected tags first (primary filter)
+        const filteredPhotosByTags = photosData.filter(photo => {
+            const photoTags = (photo.Tags || '').replace(/[()]/g, '').split('/');
+            const photoTagList = photoTags.map(tag => tag.trim());
 
-                  // Handle multiple players
-                  const photoPlayers = (photo.Player || '').split('/');
-                  const photoPlayerList = photoPlayers.map(player => player.trim());
+            // Match all selected tags
+            return selectedTags.every(tag => photoTagList.includes(tag));
+        });
 
-                  const matchTags = selectedTags.every(tag => photoTagList.includes(tag)); // Match all selected tags
-                  const matchPlayers = selectedPlayers.some(player => photoPlayerList.includes(player)); // Match any selected players
+        // If no tags are selected, show all photos (not filtered by tags)
+        const filteredPhotos = selectedTags.length === 0 ? photosData : filteredPhotosByTags;
 
-                  return matchTags && matchPlayers;
-              })
-            : photosData; // No filters selected, show all photos
+        // Apply the player filter (secondary filter)
+        const finalFilteredPhotos = filteredPhotos.filter(photo => {
+            const photoPlayers = (photo.Player || '').split('/');
+            const photoPlayerList = photoPlayers.map(player => player.trim());
 
-        displayPhotos(filteredPhotos);
+            // Match any selected players
+            return selectedPlayers.length === 0 || selectedPlayers.some(player => photoPlayerList.includes(player));
+        });
+
+        displayPhotos(finalFilteredPhotos);
     }
 
     // Clear all tag and player selections
