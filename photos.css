@@ -29,7 +29,7 @@ body, html {
     }
     
     #photo-gallery {
-        width: 100%; /* Take full width minus margin for filters */
+        width: 100vw; /* Take full width minus margin for filters */
         padding: 10px;
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust grid for mobile */
         margin-left: 0; /* No margin on mobile */
