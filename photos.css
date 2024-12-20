@@ -16,38 +16,18 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    transition: transform 0.3s ease; /* Smooth transition for mobile toggle */
+    transition: all 0.3s ease; /* Smooth transition for mobile toggle */
     z-index: 1000; /* Ensure it stays above other content */
+    visibility: visible; /* Ensure visibility is initially visible */
 }
 
-/* Hide the filters by default on mobile */
+/* Hide the filters completely when collapsed */
 #filters.hidden {
+    visibility: hidden;
+    position: absolute; /* Remove from layout */
     transform: translateX(-100%); /* Move off-screen */
-}
-
-#filters h2 {
-    margin-top: 0;
-}
-
-#filters .tag-checkbox {
-    margin-bottom: 10px;
-}
-
-#filters #clear-filters {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#filters #clear-filters:hover {
-    background-color: #0056b3;
-}
-
-#filters #toggle-filters {
-    display: none;
+    width: 0; /* Collapse width */
+    padding: 0; /* Remove padding */
 }
 
 /* Gallery Layout */
@@ -173,12 +153,14 @@ body {
         left: 0;
         height: 100vh;
         overflow-y: auto;
-        transform: translateX(-100%); /* Off-screen initially */
-        transition: transform 0.3s ease;
+        visibility: hidden; /* Hide on start */
+        position: absolute; /* Remove from layout */
     }
 
     #filters.open {
-        transform: translateX(0); /* Show on toggle */
+        visibility: visible; /* Show when open */
+        position: fixed; /* Keep in position when shown */
+        transform: translateX(0); /* Bring back on screen */
     }
 
     /* Adjust gallery layout for mobile */
