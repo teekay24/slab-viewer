@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateTags(photos) {
         const tagsSet = new Set();
-        const excludedTags = new Set(['BRAVES', '', 'All Tags', 'EXPOS', 'PADRES', 'MARINERS', 'INDIANS', 'RANGERS', 'USA', 'TWINS']);
+        const excludedTags = new Set(['BRAVES', '', 'All Tags', 'EXPOS', 'PADRES', 'MARINERS', 'INDIANS', 'RANGERS', 'USA', 'TWINS', 'REDINK', 'BLUEINK', 'SILVERINK', 'GOLDINK', 'BLACKINK']);
 
         // Collect unique tags
         photos.forEach(photo => {
