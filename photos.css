@@ -94,7 +94,7 @@ body {
 
 /* Modal styles for enlarged photo */
 .modal {
-    display: none;
+    display: none; /* Ensure the modal is hidden by default */
     position: fixed;
     z-index: 1000; /* Make sure it's on top of everything */
     left: 0;
@@ -107,6 +107,7 @@ body {
     align-items: center;
     display: flex; /* Use flex to center the image */
 }
+
 
 /* Ensure modal image fills the screen while maintaining aspect ratio */
 .modal-content {
