@@ -130,6 +130,13 @@ body, html {
         object-fit: cover;
         display: block; /* Remove any unwanted space below images */
     }
+    
+.photo-item p {
+    font-size: 10px;
+    color: #666;
+    padding: 2px;
+    margin: 0;
+}
 }
 
 /* Modal adjustments for mobile */
