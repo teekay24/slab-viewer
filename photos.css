@@ -168,3 +168,86 @@ body {
 #back-to-top:hover {
     background-color: #0056b3; /* Darker color on hover */
 }
+/* Global adjustments for mobile */
+@media screen and (max-width: 768px) {
+    /* Adjust left filter panel for mobile */
+    #filters {
+        position: absolute;
+        top: 0;
+        left: -250px; /* Start with hidden filter panel */
+        width: 250px;
+        transition: left 0.3s ease;
+        z-index: 100; /* Ensure the panel is on top when open */
+    }
+
+    #filters.open {
+        left: 0; /* Show the filter panel */
+    }
+
+    #photo-gallery {
+        margin-left: 0;
+        width: 100%; /* Full width on small screens */
+        padding: 10px;
+    }
+
+    /* Make gallery photos stack vertically */
+    #photo-gallery {
+        grid-template-columns: 1fr; /* Only one photo per row */
+        gap: 10px;
+    }
+
+    /* Adjust the Back to Top button on mobile */
+    #back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px; /* Smaller size */
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+/* Adjustments for screens wider than 768px (tablet and desktop) */
+@media screen and (min-width: 768px) {
+    #photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Multiple columns on larger screens */
+        gap: 20px;
+    }
+
+    /* Keep filter panel fixed for larger screens */
+    #filters {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 170px;
+    }
+}
+
+/* Modal image responsive */
+.modal-content {
+    width: 80%;
+    height: auto;
+    max-height: 80%;
+    object-fit: contain; /* Preserve aspect ratio */
+}
+
+/* Toggle button for mobile filter visibility */
+#toggle-filters {
+    display: none; /* Hidden by default */
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 2000;
+}
+
+/* Show toggle button on mobile */
+@media screen and (max-width: 768px) {
+    #toggle-filters {
+        display: block;
+    }
+}
