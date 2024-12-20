@@ -51,7 +51,7 @@ body, html {
     gap: 10px;
     padding: 20px;
     margin-left: 220px; /* Space for left panel */
-    width: calc(100% - 240px); /* Adjust gallery width based on left panel */
+    width: calc(100% - 220px); /* Adjust gallery width based on left panel */
     box-sizing: border-box; /* Prevent overflow */
     overflow-x: hidden; /* Prevent horizontal scroll */
 }
