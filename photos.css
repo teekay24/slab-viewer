@@ -8,25 +8,26 @@ body {
 
 /* Left Panel - Always visible, fixed width */
 #filters {
-    width: 200px; /* Reduced width of the left panel */
+    width: 200px; /* Fixed width for the left panel */
     padding: 20px;
     background-color: #f4f4f9;
     border-right: 1px solid #ddd;
     height: 100vh;
     overflow-y: auto;
-    position: fixed; /* Keep the filter panel fixed */
+    position: fixed; /* Fixed panel on the left */
     top: 0;
     left: 0;
+    z-index: 10; /* Ensure it stays above the photo gallery */
 }
 
 /* Make filter text smaller on mobile */
 @media screen and (max-width: 768px) {
     #filters h2, #filters h3, #filters label {
-        font-size: 12px; /* Smaller text on mobile */
+        font-size: 12px; /* Smaller font size for filters on mobile */
     }
 
     #filters #clear-filters {
-        font-size: 12px; /* Smaller font size for the button */
+        font-size: 12px; /* Smaller button size on mobile */
     }
 }
 
@@ -36,8 +37,8 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Grid adjusts automatically */
     gap: 10px; /* Smaller gap between images */
     padding: 20px;
-    margin-left: 220px; /* Adjust to avoid overlap with the left panel */
-    width: calc(100% - 240px); /* Ensure the gallery width doesn't go outside */
+    margin-left: 220px; /* Ensure space for the left panel */
+    width: calc(100% - 240px); /* Ensure gallery width doesn't overflow */
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
