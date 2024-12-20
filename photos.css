@@ -60,6 +60,7 @@ body, html {
     margin-left: 220px; /* Ensure space for the left panel */
     width: calc(100% - 240px); /* Ensure gallery width doesn't overflow */
     overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box; /* Prevent overflow */
 }
 
 /* Photo item styling */
