@@ -1,46 +1,47 @@
-/* General Layout */
 body {
     font-family: Arial, sans-serif;
     display: flex;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+/* Left Panel - Always visible, fixed width */
 #filters {
-    width: 240px; /* Default width of the left panel */
+    width: 200px; /* Reduced width of the left panel */
     padding: 20px;
     background-color: #f4f4f9;
     border-right: 1px solid #ddd;
     height: 100vh;
     overflow-y: auto;
-    position: fixed;
+    position: fixed; /* Keep the filter panel fixed */
     top: 0;
     left: 0;
-    transition: all 0.3s ease; /* Smooth transition for mobile toggle */
-    z-index: 1000; /* Ensure it stays above other content */
-    visibility: visible; /* Ensure visibility is initially visible */
 }
 
-/* Hide the filters completely when collapsed */
-#filters.hidden {
-    visibility: hidden;
-    position: absolute; /* Remove from layout */
-    transform: translateX(-100%); /* Move off-screen */
-    width: 0; /* Collapse width */
-    padding: 0; /* Remove padding */
+/* Make filter text smaller on mobile */
+@media screen and (max-width: 768px) {
+    #filters h2, #filters h3, #filters label {
+        font-size: 12px; /* Smaller text on mobile */
+    }
+
+    #filters #clear-filters {
+        font-size: 12px; /* Smaller font size for the button */
+    }
 }
 
-/* Gallery Layout */
+/* Grid layout for photo gallery */
 #photo-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Grid adjusts automatically */
+    gap: 10px; /* Smaller gap between images */
     padding: 20px;
-    margin-left: 240px; /* Adjusted to match left panel width */
-    width: 100%; /* Ensures gallery fits the screen */
+    margin-left: 220px; /* Adjust to avoid overlap with the left panel */
+    width: calc(100% - 240px); /* Ensure the gallery width doesn't go outside */
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
+/* Photo item styling */
 .photo-item {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -51,8 +52,8 @@ body {
 }
 
 .photo-item img {
-    max-width: 100%;
-    max-height: 300px;
+    width: 100%;
+    height: auto;
     object-fit: cover;
 }
 
@@ -73,7 +74,7 @@ body {
     text-decoration: underline;
 }
 
-/* Modal for Enlarged Photo */
+/* Modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -102,6 +103,7 @@ body {
     cursor: pointer;
 }
 
+/* Back to top button */
 #back-to-top {
     position: fixed;
     bottom: 20px;
@@ -123,58 +125,4 @@ body {
 
 #back-to-top:hover {
     background-color: #0056b3;
-}
-
-/* Mobile Responsive Styles */
-@media screen and (max-width: 768px) {
-    /* Toggle Button (mobile) */
-    #toggle-filters {
-        display: block;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px;
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        z-index: 1001;
-    }
-
-    #toggle-filters:hover {
-        background-color: #0056b3;
-    }
-
-    /* Hide filters by default on mobile */
-    #filters {
-        width: 240px; /* Default width */
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        overflow-y: auto;
-        visibility: hidden; /* Hide on start */
-        position: absolute; /* Remove from layout */
-    }
-
-    #filters.open {
-        visibility: visible; /* Show when open */
-        position: fixed; /* Keep in position when shown */
-        transform: translateX(0); /* Bring back on screen */
-    }
-
-    /* Adjust gallery layout for mobile */
-    #photo-gallery {
-        margin-left: 0; /* No left margin for smaller screens */
-        width: 100%; /* Full width */
-    }
-
-    #photo-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Smaller grid items */
-    }
-
-    /* Back-to-Top button adjustment */
-    #back-to-top {
-        bottom: 80px; /* Adjust so it doesn't overlap the filter toggle button */
-    }
 }
