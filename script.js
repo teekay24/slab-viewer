@@ -73,38 +73,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function populatePlayers(photos) {
-        const playersSet = new Set();
+function populatePlayers(photos) {
+    const playersSet = new Set();
+    const excludedPlayers = ['Barry Zito', 'Ryan Klesko']; // Players to exclude
 
-        // Collect unique player names
-        photos.forEach(photo => {
-            const players = (photo.Player || '').split('/');
-            players.forEach(player => {
-                const trimmedPlayer = player.trim();
-                if (trimmedPlayer) {
-                    playersSet.add(trimmedPlayer);
-                }
-            });
+    // Collect unique player names
+    photos.forEach(photo => {
+        const players = (photo.Player || '').split('/');
+        players.forEach(player => {
+            const trimmedPlayer = player.trim();
+            if (trimmedPlayer && !excludedPlayers.includes(trimmedPlayer)) { // Exclude specific players
+                playersSet.add(trimmedPlayer);
+            }
         });
+    });
 
-        allPlayers = Array.from(playersSet).sort();
+    allPlayers = Array.from(playersSet).sort();
 
-        // Create checkboxes for each player
-        allPlayers.forEach(player => {
-            const checkboxDiv = document.createElement('div');
-            checkboxDiv.className = 'player-checkbox';
-            checkboxDiv.innerHTML = `
-                <input type="checkbox" id="player-${player}" class="player-filter" value="${player}">
-                <label for="player-${player}">${player}</label>
-            `;
-            playerFilterContainer.appendChild(checkboxDiv);
-        });
+    // Create checkboxes for each player
+    allPlayers.forEach(player => {
+        const checkboxDiv = document.createElement('div');
+        checkboxDiv.className = 'player-checkbox';
+        checkboxDiv.innerHTML = `
+            <input type="checkbox" id="player-${player}" class="player-filter" value="${player}">
+            <label for="player-${player}">${player}</label>
+        `;
+        playerFilterContainer.appendChild(checkboxDiv);
+    });
 
-        // Add event listeners for player filters
-        document.querySelectorAll('.player-filter').forEach(checkbox => {
-            checkbox.addEventListener('change', filterPhotosByTagsAndPlayers);
-        });
-    }
+    // Add event listeners for player filters
+    document.querySelectorAll('.player-filter').forEach(checkbox => {
+        checkbox.addEventListener('change', filterPhotosByTagsAndPlayers);
+    });
+}
+
 
     function filterPhotosByTagsAndPlayers() {
         // Get all selected tags
