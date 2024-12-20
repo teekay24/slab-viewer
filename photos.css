@@ -108,6 +108,7 @@ body, html {
 @media screen and (max-width: 768px) {
     #filters {
         width: 140px; /* Smaller width for the left panel on mobile */
+        padding: 5px;
     }
 
     #photo-gallery {
