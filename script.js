@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Disable background scrolling
                 document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed'; // Prevent scrolling in mobile by fixing body position
+                document.body.style.width = '100%'; // Maintain the width while body is fixed
             });
         });
     }
@@ -187,12 +189,14 @@ document.addEventListener('DOMContentLoaded', () => {
     closeModal.addEventListener('click', () => {
         modal.style.display = 'none'; // Hide modal
         document.body.style.overflow = 'auto'; // Re-enable background scrolling
+        document.body.style.position = ''; // Remove fixed positioning
     });
 
     modal.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none'; // Hide modal when clicking outside the image
             document.body.style.overflow = 'auto'; // Re-enable background scrolling
+            document.body.style.position = ''; // Remove fixed positioning
         }
     });
 
