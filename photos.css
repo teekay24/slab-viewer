@@ -1,9 +1,11 @@
-body {
+body, html {
     font-family: Arial, sans-serif;
     display: flex;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    width: 100%; /* Prevent body from exceeding the viewport width */
+    overflow-x: hidden; /* Ensure no horizontal scrolling */
 }
 
 /* Left Panel - Always visible, fixed width */
@@ -35,10 +37,10 @@ body {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust for mobile */
         gap: 8px; /* Smaller gap between images */
         padding: 10px;
-        margin-left: 0; /* Remove any left margin */
-        margin-right: 0; /* Remove any right margin */
+        margin: 0; /* Remove any margin */
         width: 100vw; /* Ensure full width for the gallery */
         box-sizing: border-box; /* Prevent overflow */
+        overflow: hidden; /* Prevent any horizontal overflow */
     }
 
     /* Ensure images fit within their grid items */
