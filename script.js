@@ -45,10 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Store the current scroll position
                 lastScrollY = window.scrollY;
 
-                // Disable background scrolling
-                document.body.style.overflow = 'hidden';
-                document.body.style.position = 'fixed'; // Prevent scrolling in mobile by fixing body position
-                document.body.style.width = '100%'; // Maintain the width while body is fixed
+                // Lock the background scroll position
+                document.body.style.overflow = 'hidden'; // Disable scrolling
+                photoGallery.style.position = 'fixed'; // Lock gallery in place
+                photoGallery.style.top = `-${lastScrollY}px`; // Offset gallery by scroll position
+
+                // Maintain the width while the body is fixed
+                document.body.style.width = '100%';
             });
         });
     }
@@ -197,6 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none'; // Hide modal
         document.body.style.overflow = 'auto'; // Re-enable background scrolling
         document.body.style.position = ''; // Remove fixed positioning
+
+        // Restore gallery scroll position and unlock the gallery
+        photoGallery.style.position = '';
+        photoGallery.style.top = '';
         window.scrollTo(0, lastScrollY); // Restore the scroll position
     });
 
@@ -205,6 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none'; // Hide modal when clicking outside the image
             document.body.style.overflow = 'auto'; // Re-enable background scrolling
             document.body.style.position = ''; // Remove fixed positioning
+
+            // Restore gallery scroll position and unlock the gallery
+            photoGallery.style.position = '';
+            photoGallery.style.top = '';
             window.scrollTo(0, lastScrollY); // Restore the scroll position
         }
     });
