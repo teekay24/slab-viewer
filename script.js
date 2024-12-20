@@ -175,10 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Mobile Filter Toggle Button (Function definition)
-    window.toggleFilters = function() {
-        const filters = document.getElementById('filters');
-        filters.classList.toggle('open');
-    };
+// Mobile Filter Toggle Button (Function definition)
+function toggleFilters() {
+    const filters = document.getElementById('filters');
+    filters.classList.toggle('open');  // Add/remove 'open' class to toggle visibility
+}
 });
 
 // Back to top button functionality
