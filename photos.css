@@ -32,11 +32,19 @@ body {
 
     /* Adjust photo gallery grid for mobile */
     #photo-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 25% smaller */
-        gap: 8px; /* Slightly smaller gap between images */
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust for mobile */
+        gap: 10px; /* Set appropriate gap between images */
         padding: 10px;
-        margin-left: 200px; /* Adjust margin for left panel */
-        width: calc(100% - 200px); /* Adjust width */
+        margin-left: 0; /* Ensure no extra space on mobile */
+        width: 100%; /* Ensure full width for the gallery */
+        box-sizing: border-box; /* Prevent overflow */
+    }
+
+    /* Ensure images fit within their grid items */
+    .photo-item img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
     }
 }
 
@@ -62,7 +70,7 @@ body {
 }
 
 .photo-item img {
-    width: 100%;
+    width: 100%; /* Ensure images fill their container */
     height: auto;
     object-fit: cover;
 }
