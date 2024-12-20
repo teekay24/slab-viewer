@@ -92,34 +92,61 @@ body {
     text-decoration: underline;
 }
 
-/* Modal styles */
+/* Modal styles for enlarged photo */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000; /* Make sure it's on top of everything */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    width: 100vw; /* Use the full viewport width */
+    height: 100vh; /* Use the full viewport height */
+    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent background */
+    overflow: hidden; /* Hide any overflow */
+    justify-content: center;
+    align-items: center;
+    display: flex; /* Use flex to center the image */
 }
 
+/* Ensure modal image fills the screen while maintaining aspect ratio */
 .modal-content {
+    max-width: 90%; /* Take 90% of screen width */
+    max-height: 90%; /* Take 90% of screen height */
+    object-fit: contain; /* Preserve the aspect ratio of the image */
     margin: auto;
-    display: block;
-    max-width: 80%;
-    max-height: 80%;
 }
 
+/* Close button styling */
 .close {
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     position: absolute;
     top: 20px;
     right: 25px;
     cursor: pointer;
+    z-index: 1010; /* Ensure the close button is on top */
 }
+
+/* Mobile - Adjust for fullscreen modal */
+@media screen and (max-width: 768px) {
+    .modal {
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .modal-content {
+        width: 100%; /* Use full screen width on mobile */
+        height: 100%; /* Use full screen height on mobile */
+    }
+
+    .close {
+        font-size: 30px; /* Adjust the size of the close button */
+    }
+}
+
 
 /* Back to top button */
 #back-to-top {
