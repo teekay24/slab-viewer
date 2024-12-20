@@ -29,15 +29,24 @@ body {
     #filters #clear-filters {
         font-size: 12px; /* Smaller button size on mobile */
     }
+
+    /* Adjust photo gallery grid for mobile */
+    #photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 25% smaller */
+        gap: 8px; /* Slightly smaller gap between images */
+        padding: 10px;
+        margin-left: 200px; /* Adjust margin for left panel */
+        width: calc(100% - 200px); /* Adjust width */
+    }
 }
 
 /* Grid layout for photo gallery */
 #photo-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Grid adjusts automatically */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Default for desktop */
     gap: 10px; /* Smaller gap between images */
     padding: 20px;
-    margin-left: 205px; /* Ensure space for the left panel */
+    margin-left: 220px; /* Ensure space for the left panel */
     width: calc(100% - 240px); /* Ensure gallery width doesn't overflow */
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
