@@ -24,43 +24,36 @@ body, html {
 
 /* Make filter text smaller on mobile */
 @media screen and (max-width: 768px) {
-    #filters h2, #filters h3, #filters label {
-        font-size: 12px; /* Smaller font size for filters on mobile */
+    #filters {
+        width: 140px; /* Keep the filters at a smaller width on mobile */
     }
-
-    #filters #clear-filters {
-        font-size: 12px; /* Smaller button size on mobile */
-    }
-
-    /* Adjust photo gallery grid for mobile */
+    
     #photo-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust for mobile */
-        gap: 8px; /* Smaller gap between images */
+        width: 100%; /* Take full width minus margin for filters */
         padding: 10px;
-        margin: 0; /* Remove any margin */
-        width: 100vw; /* Ensure full width for the gallery */
-        box-sizing: border-box; /* Prevent overflow */
-        overflow: hidden; /* Prevent any horizontal overflow */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust grid for mobile */
+        margin-left: 0; /* No margin on mobile */
+        box-sizing: border-box; /* Prevent overflow due to padding */
     }
-
-    /* Ensure images fit within their grid items */
+    
     .photo-item img {
-        max-width: 100%;
+        width: 100%;
         height: auto;
         object-fit: cover;
     }
 }
 
+
 /* Grid layout for photo gallery */
 #photo-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Default for desktop */
-    gap: 10px; /* Smaller gap between images */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Standard desktop layout */
+    gap: 10px;
     padding: 20px;
-    margin-left: 220px; /* Ensure space for the left panel */
-    width: calc(100% - 240px); /* Ensure gallery width doesn't overflow */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    margin-left: 220px; /* Space for left panel */
+    width: calc(100% - 240px); /* Adjust gallery width based on left panel */
     box-sizing: border-box; /* Prevent overflow */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Photo item styling */
@@ -98,27 +91,20 @@ body, html {
 
 /* Modal styles for enlarged photo */
 .modal {
-    display: none; /* Ensure the modal is hidden by default */
-    position: fixed;
-    z-index: 1000; /* Make sure it's on top of everything */
-    left: 0;
-    top: 0;
-    width: 100vw; /* Use the full viewport width */
-    height: 100vh; /* Use the full viewport height */
-    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent background */
-    overflow: hidden; /* Hide any overflow */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: flex; /* Use flex to center the image */
+    background-color: rgba(0, 0, 0, 0.9); /* Dark background */
 }
 
-/* Ensure modal image fills the screen while maintaining aspect ratio */
 .modal-content {
-    max-width: 90%; /* Take 90% of screen width */
-    max-height: 90%; /* Take 90% of screen height */
-    object-fit: contain; /* Preserve the aspect ratio of the image */
-    margin: auto;
+    max-width: 90%; /* Max width of modal content */
+    max-height: 90%; /* Max height of modal content */
+    object-fit: contain; /* Preserve image aspect ratio */
 }
+
 
 /* Close button styling */
 .close {
