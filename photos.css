@@ -112,7 +112,7 @@ body, html {
 
     #photo-gallery {
         width: calc(100% - 140px); /* Subtract the left panel width from total width */
-        padding: 10px; /* Reduced padding to prevent images from getting cut off */
+        padding: 1px; /* Reduced padding to prevent images from getting cut off */
         grid-template-columns: 1fr; /* Only 1 column for mobile */
         margin-left: 0; /* No margin on mobile */
         box-sizing: border-box; /* Prevent overflow due to padding */
