@@ -112,18 +112,25 @@ body, html {
 
     #photo-gallery {
         width: calc(100% - 140px); /* Subtract the left panel width from total width */
-        padding: 10px;
+        max-width: 100%; /* Ensure the gallery does not exceed the viewport width */
+        padding: 5px; /* Reduced padding to prevent images from getting cut off */
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust grid for mobile */
         margin-left: 0; /* No margin on mobile */
         box-sizing: border-box; /* Prevent overflow due to padding */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
+    .photo-item {
+        padding: 0; /* Remove padding on photo items to avoid excess space */
     }
 
     .photo-item img {
         width: 100%;
         height: auto;
         object-fit: cover;
+        display: block; /* Remove any unwanted space below images */
     }
-
+}
     /* Modal adjustments for mobile */
     .modal {
         width: 100vw;
