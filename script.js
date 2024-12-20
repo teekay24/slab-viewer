@@ -210,3 +210,9 @@ modal.addEventListener('click', (event) => {
         modal.style.display = 'none';
     }
 });
+
+// When the page loads, ensure the modal is hidden
+window.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('photo-modal');
+    modal.style.display = 'none'; // Make sure it's hidden initially
+});
