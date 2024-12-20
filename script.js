@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let photosData = []; // Store all photos data to filter
     let allPlayers = []; // Store unique player names
+    let lastScrollY = 0; // Store the last scroll position
 
     function displayPhotos(photos) {
         photoGallery.innerHTML = ''; // Clear the gallery
@@ -37,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.preventDefault();
                 modal.style.display = 'flex'; // Show modal in full screen
                 modalImage.src = photoPath;
+
+                // Store the current scroll position
+                lastScrollY = window.scrollY;
 
                 // Disable background scrolling
                 document.body.style.overflow = 'hidden';
@@ -170,51 +174,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Attach the clear filters button click event
-    clearFiltersButton.addEventListener('click', clearTagAndPlayerSelections);
-
-    // Handle player filter section toggle
-    const playerFilterHeader = document.querySelector('#player-filter h3');
-    const playerFilterSection = document.getElementById('player-filter');
-    playerFilterHeader.addEventListener('click', () => {
-        playerFilterSection.classList.toggle('open');
-    });
-    
-    // Mobile Filter Toggle Button (Function definition)
-    function toggleFilters() {
-        const filters = document.getElementById('filters');
-        filters.classList.toggle('open');  // Add/remove 'open' class to toggle visibility
-    }
-
-    // Modal functionality for enlarging photos
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none'; // Hide modal
-        document.body.style.overflow = 'auto'; // Re-enable background scrolling
-        document.body.style.position = ''; // Remove fixed positioning
-    });
-
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none'; // Hide modal when clicking outside the image
-            document.body.style.overflow = 'auto'; // Re-enable background scrolling
-            document.body.style.position = ''; // Remove fixed positioning
-        }
-    });
-
-    // When the page loads, ensure the modal is hidden
-    window.addEventListener('DOMContentLoaded', function() {
-        modal.style.display = 'none'; // Make sure it's hidden initially
-    });
-});
-
-// Back to top button functionality
-const backToTopButton = document.getElementById('back-to-top');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) {
-        backToTopButton.style.display = 'flex';
-    } else {
-        backToTopButton.style.display = 'none';
-    }
-});
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+ 
