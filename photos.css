@@ -37,7 +37,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Grid adjusts automatically */
     gap: 10px; /* Smaller gap between images */
     padding: 20px;
-    margin-left: 220px; /* Ensure space for the left panel */
+    margin-left: 205px; /* Ensure space for the left panel */
     width: calc(100% - 240px); /* Ensure gallery width doesn't overflow */
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
