@@ -1,16 +1,17 @@
+/* Body and General Layout */
 body, html {
     font-family: Arial, sans-serif;
     display: flex;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    width: 100vw; /* Prevent body from exceeding the viewport width */
+    width: 100%; /* Prevent body from exceeding the viewport width */
     overflow-x: hidden; /* Ensure no horizontal scrolling */
 }
 
 /* Left Panel - Always visible, fixed width */
 #filters {
-    width: 200px; /* Fixed width for the left panel */
+    width: 200px; /* Default fixed width for the left panel */
     padding: 20px;
     background-color: #f4f4f9;
     border-right: 1px solid #ddd;
@@ -21,28 +22,6 @@ body, html {
     left: 0;
     z-index: 10; /* Ensure it stays above the photo gallery */
 }
-
-/* Make filter text smaller on mobile */
-@media screen and (max-width: 768px) {
-    #filters {
-        width: 140px; /* Keep the filters at a smaller width on mobile */
-    }
-    
-    #photo-gallery {
-        width: 100vw; /* Take full width minus margin for filters */
-        padding: 10px;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust grid for mobile */
-        margin-left: 0; /* No margin on mobile */
-        box-sizing: border-box; /* Prevent overflow due to padding */
-    }
-    
-    .photo-item img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-}
-
 
 /* Grid layout for photo gallery */
 #photo-gallery {
@@ -90,7 +69,6 @@ body, html {
 }
 
 /* Modal styles for enlarged photo */
-/* Modal styling */
 .modal {
     display: none; /* Hidden by default */
     position: fixed;
@@ -126,8 +104,27 @@ body, html {
     z-index: 1010; /* Ensure close button is on top */
 }
 
-/* Mobile - Adjust for fullscreen modal */
+/* Mobile - Adjust for reduced left panel */
 @media screen and (max-width: 768px) {
+    #filters {
+        width: 140px; /* Smaller width for the left panel on mobile */
+    }
+
+    #photo-gallery {
+        width: calc(100% - 140px); /* Subtract the left panel width from total width */
+        padding: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust grid for mobile */
+        margin-left: 0; /* No margin on mobile */
+        box-sizing: border-box; /* Prevent overflow due to padding */
+    }
+
+    .photo-item img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    /* Modal adjustments for mobile */
     .modal {
         width: 100vw;
         height: 100vh;
@@ -139,7 +136,7 @@ body, html {
     }
 
     .close {
-        font-size: 30px; /* Adjust size of close button */
+        font-size: 30px; /* Adjust size of close button on mobile */
     }
 }
 
