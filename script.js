@@ -35,8 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const viewLink = photoItem.querySelector('.view-full-photo');
             viewLink.addEventListener('click', (event) => {
                 event.preventDefault();
-                modal.style.display = 'block';
+                modal.style.display = 'flex'; // Show modal in full screen
                 modalImage.src = photoPath;
+
+                // Disable background scrolling
+                document.body.style.overflow = 'hidden';
             });
         });
     }
@@ -175,11 +178,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Mobile Filter Toggle Button (Function definition)
-// Mobile Filter Toggle Button (Function definition)
-function toggleFilters() {
-    const filters = document.getElementById('filters');
-    filters.classList.toggle('open');  // Add/remove 'open' class to toggle visibility
-}
+    function toggleFilters() {
+        const filters = document.getElementById('filters');
+        filters.classList.toggle('open');  // Add/remove 'open' class to toggle visibility
+    }
+
+    // Modal functionality for enlarging photos
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none'; // Hide modal
+        document.body.style.overflow = 'auto'; // Re-enable background scrolling
+    });
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none'; // Hide modal when clicking outside the image
+            document.body.style.overflow = 'auto'; // Re-enable background scrolling
+        }
+    });
+
+    // When the page loads, ensure the modal is hidden
+    window.addEventListener('DOMContentLoaded', function() {
+        modal.style.display = 'none'; // Make sure it's hidden initially
+    });
 });
 
 // Back to top button functionality
@@ -193,26 +213,4 @@ window.addEventListener('scroll', () => {
 });
 backToTopButton.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// Modal functionality for enlarging photos
-const modal = document.getElementById('photo-modal');
-const modalImage = document.getElementById('modal-image');
-const closeModal = document.querySelector('.close');
-
-// Close modal when clicked outside the image or on the close button
-closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
-
-modal.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-
-// When the page loads, ensure the modal is hidden
-window.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('photo-modal');
-    modal.style.display = 'none'; // Make sure it's hidden initially
 });
