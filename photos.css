@@ -5,8 +5,8 @@ body, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    width: 100%; /* Prevent body from exceeding the viewport width */
-    overflow-x: hidden; /* Ensure no horizontal scrolling */
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Left Panel - Always visible, fixed width */
@@ -112,9 +112,8 @@ body, html {
 
     #photo-gallery {
         width: calc(100% - 140px); /* Subtract the left panel width from total width */
-        max-width: 100%; /* Ensure the gallery does not exceed the viewport width */
-        padding: 5px; /* Reduced padding to prevent images from getting cut off */
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Adjust grid for mobile */
+        padding: 10px; /* Reduced padding to prevent images from getting cut off */
+        grid-template-columns: 1fr; /* Only 1 column for mobile */
         margin-left: 0; /* No margin on mobile */
         box-sizing: border-box; /* Prevent overflow due to padding */
         overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -131,20 +130,20 @@ body, html {
         display: block; /* Remove any unwanted space below images */
     }
 }
-    /* Modal adjustments for mobile */
-    .modal {
-        width: 100vw;
-        height: 100vh;
-    }
 
-    .modal-content {
-        width: 100%; /* Use full screen width */
-        height: 100%; /* Use full screen height */
-    }
+/* Modal adjustments for mobile */
+.modal {
+    width: 100vw;
+    height: 100vh;
+}
 
-    .close {
-        font-size: 30px; /* Adjust size of close button on mobile */
-    }
+.modal-content {
+    width: 100%; /* Use full screen width */
+    height: 100%; /* Use full screen height */
+}
+
+.close {
+    font-size: 30px; /* Adjust size of close button on mobile */
 }
 
 /* Back to top button */
