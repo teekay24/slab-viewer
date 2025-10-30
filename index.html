@@ -61,6 +61,25 @@
         .view-full-photo:hover {
             text-decoration: underline;
         }
+/* Player Filter styling */
+#player-filter {
+  font-size: 0.85em; /* slightly smaller text */
+}
+
+#player-filter label {
+  display: inline-block;
+  white-space: nowrap;       /* prevents line breaks */
+  overflow: hidden;          /* hides overflow text */
+  text-overflow: ellipsis;   /* shows "..." if too long */
+  max-width: 90%;            /* ensures it fits in the sidebar */
+  vertical-align: middle;
+}
+
+#player-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* small spacing between players */
+}
     </style>
 </head>
 <body>
